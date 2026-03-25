@@ -16,7 +16,7 @@ export class Renderer {
     const cam = camera.getPosition();
 
     const theta = camera.theta;
-    const phi   = camera.phi;
+    const phi = camera.phi;
 
     // ------------------------------------------------------------
     // 1. Compute a stable forward vector from spherical angles
@@ -53,8 +53,8 @@ export class Renderer {
     const dy = p.y - cam.y;
     const dz = p.z - cam.z;
 
-    const cx = dx * right.x   + dy * right.y   + dz * right.z;
-    const cy = dx * up.x      + dy * up.y      + dz * up.z;
+    const cx = dx * right.x + dy * right.y + dz * right.z;
+    const cy = dx * up.x + dy * up.y + dz * up.z;
     const cz = dx * forward.x + dy * forward.y + dz * forward.z;
 
     // ------------------------------------------------------------
@@ -73,7 +73,7 @@ export class Renderer {
     const depth = 300 / denom;
 
     return {
-      x: this.canvas.width  / 2 + cx * depth,
+      x: this.canvas.width / 2 + cx * depth,
       y: this.canvas.height / 2 - cy * depth
     };
   }

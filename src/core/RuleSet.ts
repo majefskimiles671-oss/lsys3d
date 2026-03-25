@@ -1,0 +1,1 @@
+export type RuleSet = Record<string, string>;
