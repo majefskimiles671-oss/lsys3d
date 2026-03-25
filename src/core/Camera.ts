@@ -4,7 +4,7 @@ export class Camera {
   constructor(
     public theta = 0,
     public phi = 0.5,
-    public radius = 100
+    public radius = 400
   ) {}
 
   getPosition(): Vec3 {

@@ -10,7 +10,11 @@ import { Camera } from "../core/Camera.js";
 import { Renderer } from "../core/Renderer.js";
 import { plantRules } from "./rules/Plant3D.js";
 import { lerp } from "../util/math.js";
-import { deform } from "../util/transform.js";
+import { deform} from "../util/transform.js";
+
+import { recenterSegments, scaleSegments, translateSegments } 
+  from "../util/scene.js";
+
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 canvas.width = 900;
@@ -44,10 +48,6 @@ window.addEventListener("mousemove", e => {
     camera.phi += dy * 0.005;
     camera.phi = Math.max(-1.5, Math.min(1.5, camera.phi));
 
-    // camera.theta = 0;
-    // camera.phi = 0.5;
-    // camera.radius = 400;
-
 });
 
 window.addEventListener("mouseup", () => dragging = false);
@@ -60,11 +60,21 @@ canvas.addEventListener("wheel", e => {
 
 const baseSegments = turtle.interpret(program, 22.5); // generate once
 
-function loop(time: number) {
-  const animated = deform(baseSegments, time);
-  renderer.render(animated, camera);
+// Keep it centered
+recenterSegments(baseSegments);
 
-  requestAnimationFrame(loop);
+// Increase size if needed
+scaleSegments(baseSegments, 10.0);
+
+// Move plant away from camera
+translateSegments(baseSegments, 0, 0, 400);
+
+
+function loop(time: number) {
+    const animated = deform(baseSegments, time);
+    renderer.render(animated, camera);
+
+    requestAnimationFrame(loop);
 }
 
 requestAnimationFrame(loop);
