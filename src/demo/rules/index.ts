@@ -12,9 +12,12 @@ export const ruleSets: Map<string, RuleSet> = new Map([
     [
         "Starburst",
         {
-            X: "F+F+F+F+F+F",
-            F: "FF",
+
+            X: "F[+X][-X][&X][^X][/X][\\X]",
+            F: "FF"
+
         }
+
     ],
 
     [

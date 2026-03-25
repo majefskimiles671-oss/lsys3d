@@ -24,8 +24,8 @@ canvas.width = 900;
 canvas.height = 700;
 
 
-const selected = "Plant3D";
-// const selected = "Starburst";
+// const selected = "Plant3D";
+const selected = "Starburst";
 // const selected = "SimpleTree";
 // const selected = "SpiralTree";
 const rules = ruleSets.get(selected)!
