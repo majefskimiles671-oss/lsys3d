@@ -1,14 +1,13 @@
 {
-  "name": "learn-ts",
+  "name": "lsys3d",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "ts-node --esm 004/app.ts",
-    "build": "tsc -p 004/tsconfig.json",
-    "start": "node 004/js/app.js"
+"scripts": {
+    "build": "tsc",
+    "serve": "serve public",
+    "dev": "npm run build && npm run serve"
   },
   "dependencies": {
-    "rss-parser": "^3.13.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.37",
