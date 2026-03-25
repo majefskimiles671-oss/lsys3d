@@ -1,0 +1,19 @@
+{
+  "name": "learn-ts",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node --esm 004/app.ts",
+    "build": "tsc -p 004/tsconfig.json",
+    "start": "node 004/js/app.js"
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.37",
+    "serve": "^14.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
