@@ -14,15 +14,20 @@ import { recenterSegments, scaleSegments, translateSegments }
   from "../util/scene.js";
 
 
+import { GridRenderer } from "../core/GridRenderer.js";
+
+
+
+
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 canvas.width = 900;
 canvas.height = 700;
 
 
-// const selected = "Plant3D";
+const selected = "Plant3D";
 // const selected = "Starburst";
 // const selected = "SimpleTree";
-const selected = "SpiralTree";
+// const selected = "SpiralTree";
 const rules = ruleSets.get(selected)!
 
 const lsys = new LSystem("X", rules);
@@ -31,6 +36,9 @@ const program = lsys.generate(5);
 const turtle = new Turtle3D(6);
 const camera = new Camera();
 const renderer = new Renderer(canvas);
+
+const projector = renderer.getProjector();
+const grid = new GridRenderer(canvas, projector)
 
 // --- Orbit Controls ---
 let dragging = false;
@@ -49,7 +57,7 @@ window.addEventListener("mousemove", e => {
     const dy = e.clientY - lastY;
     lastX = e.clientX;
     lastY = e.clientY;
-    camera.theta += dx * 0.005;
+    camera.theta -= dx * 0.005;
     camera.phi += dy * 0.005;
     camera.phi = Math.max(-1.5, Math.min(1.5, camera.phi));
 
@@ -65,21 +73,26 @@ canvas.addEventListener("wheel", e => {
 
 const baseSegments = turtle.interpret(program, 22.5); // generate once
 
-// Keep it centered
+// Keep it centered, bounding box centered at origin
 // recenterSegments(baseSegments);
 
 // Increase size if needed
-scaleSegments(baseSegments, 10);
+scaleSegments(baseSegments, 2);
 
 // Move plant away from camera
-translateSegments(baseSegments, 0, 0, 1000);
+// translateSegments(baseSegments, 0, 0, 1);
+
 
 
 function loop(time: number) {
-    const animated = deform(baseSegments, time);
-    renderer.render(animated, camera);
+  const animated = deform(baseSegments, time);
 
-    requestAnimationFrame(loop);
+  renderer.clear();
+  grid.render(camera);
+  renderer.render(animated, camera);
+
+  requestAnimationFrame(loop);
 }
+
 
 requestAnimationFrame(loop);

@@ -8,6 +8,17 @@ export class Renderer {
     this.ctx = canvas.getContext("2d")!;
   }
 
+
+  getProjector() {
+    return this.project.bind(this);
+  }
+
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+
   /**
    * Convert world-space point to screen-space.
    * Uses a stable orbit-camera transform + safe projection.
@@ -22,11 +33,18 @@ export class Renderer {
     // 1. Compute a stable forward vector from spherical angles
     //    (look direction, not -cameraPos!)
     // ------------------------------------------------------------
+    // Vector pointing from camera to the origin (0,0,0)
     const forward = {
-      x: -Math.sin(theta) * Math.cos(phi),
-      y: -Math.sin(phi),
-      z: -Math.cos(theta) * Math.cos(phi)
+      x: -cam.x,
+      y: -cam.y,
+      z: -cam.z
     };
+
+    // Normalize
+    const flen = Math.hypot(forward.x, forward.y, forward.z);
+    forward.x /= flen;
+    forward.y /= flen;
+    forward.z /= flen;
 
     // ------------------------------------------------------------
     // 2. Compute right axis (perpendicular to yaw)
@@ -61,7 +79,7 @@ export class Renderer {
     // 5. Near-plane cutoff to prevent infinite zoom
     //    cz < -NEAR means the point is behind the camera
     // ------------------------------------------------------------
-    const NEAR = -1; // safe near clipping plane (in camera space)
+    const NEAR = -1000; // safe near clipping plane (in camera space)
     if (cz < NEAR) {
       return null; // skip this point
     }
@@ -82,7 +100,6 @@ export class Renderer {
    * Draw all visible 3D segments.
    */
   render(segments: Segment3D[], camera: Camera) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.strokeStyle = "green";
     this.ctx.lineWidth = 1;
 
