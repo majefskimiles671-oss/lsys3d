@@ -7,10 +7,35 @@
 </head>
 
 <body>
-  <h1 id="title">Lsys3d</h1>
+
+
+
+
+<div style="position:absolute; top:10px; left:10px; background:#ffffffc0; padding:8px; border-radius:6px; backdrop-filter:blur(4px);">
+    <h1 id="title">Lsys3d</h1>
   <h2 id="title2">L‑System Plant</h2>
+    <div>
+      <label for="ruleSelect">Rule:</label>
+      <select id="ruleSelect" style="padding:2px;"></select>
+    </div>
+
+    <div style="margin-top:6px;">
+      <label for="iterSlider">Iterations:</label>
+      <input type="range" id="iterSlider" min="1" max="7" value="5" />
+      <span id="iterLabel">5</span>
+    </div>
+
+    <div style="margin-top:6px;">
+      <label for="stepSlider">Step:</label>
+      <input type="range" id="stepSlider" min="2" max="20" value="6" />
+      <span id="stepLabel">6</span>
+    </div>
   <p id="time"></p>
   <p id="time2"></p>
+
+  </div>
+
+
   <canvas id="canvas" width="600" height="600"></canvas>
   <script type="module" src="dist/demo/main.js"></script>
 </body>

@@ -34,5 +34,23 @@ export const ruleSets: Map<string, RuleSet> = new Map([
             X: "F[+X]F[-X]F",
             F: "F",
         }
+    ],
+
+    [
+        "SunCorona",
+
+        {
+            X: "F[+X]F[-X]F[&X]F[^X]F[/X]F[\\X]",
+            F: "F"
+        }
+
+    ],
+
+    [
+        "Dense3Dstar",
+        {
+            X: "F[+X][-X][&X][/X]FX",
+            F: "FF"
+        }
     ]
 ]);
